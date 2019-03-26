@@ -85,3 +85,6 @@ Get a particular story based on the story id
 
 Method POST /stories/{id}  BODY: {"user_id" : 1213, "clickbait" : true}
 Use to report clickbait or non-clickbait 
+
+## Installation
+Run `pipenv install` in the root of the project directory.
