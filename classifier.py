@@ -1,25 +1,35 @@
-from sklearn.externals import joblib
+import joblib
 from keras.models import load_model
 from scipy.sparse import hstack
 import pandas as pd
 import nltk
+import os
 
 global svm, mnb, lr, rf, nn, tfidf_vectorizer_text, tfidf_vectorizer_pos
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
-with open('svm.pkl', 'rb') as f:
+pickle_file = os.path.join(dir_path, 'pickles')
+svm_pickle_path = os.path.join(pickle_file, 'svm.pkl')
+mnb_pickle_path = os.path.join(pickle_file, 'mnb.pkl')
+lr_pickle_path = os.path.join(pickle_file, 'lr.pkl')
+rf_pickle_path = os.path.join(pickle_file, 'rf.pkl')
+nn_pickle_path = os.path.join(pickle_file, 'neural_net.h5')
+pos_pickle_path = os.path.join(pickle_file, 'tfidf_vectorizer_pos.pkl')
+text_pickle_path = os.path.join(pickle_file, 'tfidf_vectorizer_text.pkl')
+
+with open(svm_pickle_path, 'rb') as f:
     svm = joblib.load(f)
-with open('mnb.pkl', 'rb') as f:
+with open(mnb_pickle_path, 'rb') as f:
     mnb = joblib.load(f)
-with open('lr.pkl', 'rb') as f:
+with open(lr_pickle_path, 'rb') as f:
     lr = joblib.load(f)
-with open('rf.pkl', 'rb') as f:
+with open(rf_pickle_path, 'rb') as f:
     rf = joblib.load(f)
-with open('neural_net.h5', 'rb') as f:
-    nn = load_model('neural_net.h5')
+nn = load_model(nn_pickle_path)
 
-with open('tfidf_vectorizer_pos.pkl', 'rb') as f:
+with open(pos_pickle_path, 'rb') as f:
     tfidf_vectorizer_pos = joblib.load(f)
-with open('tfidf_vectorizer_text.pkl', 'rb') as f:
+with open(text_pickle_path, 'rb') as f:
     tfidf_vectorizer_text = joblib.load(f)
 
 def classify_clickbait(headline):
